@@ -35,24 +35,20 @@ endif
 "NERDTree
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
-"IndentGuides
+"VimIndentGuide
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 
-"vim-trailing-whitespace
+"trailing-white-space
 let g:extra_whitespace_ignored_filetypes = ['unite']
 
 "lightline
-set laststatus=2 
+set laststatus=2
 
-"markdown
-au BufRead,BufNewFile *.md set filetype=markdown
-let g:vim_markdown_folding_disabled=1
-
-"Neo-Complete
+"neocomplete
 highlight Pmenu ctermbg=4
 highlight PmenuSel ctermbg=1
 highlight PMenuSbar ctermbg=4
@@ -119,6 +115,19 @@ set smarttab "新しい行を作った時に高度な自動インデント
 set clipboard=unnamed,autoselect "OSのクリッポボードと連携
 set matchpairs& matchpairs+=<:> "対応カッコに＜＞を追加
 set backspace=eol,indent,start
+let g:vim_markdown_folding_disabled=1
+
+"Markdown
+au BufRead,BufNewFile *.md set filetype=markdown
+
+"js
+autocmd filetype coffee,javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+
+"html
+autocmd filetype html setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+
+"css
+autocmd filetype css setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 
 filetype plugin indent on
 syntax enable
