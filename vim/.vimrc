@@ -123,6 +123,9 @@ au BufRead,BufNewFile *.md set filetype=markdown
 "js
 autocmd filetype coffee,javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 
+"jsx
+au BufRead,BufNewFile *.jsx set filetype=javascript.jsx
+
 "html
 autocmd filetype html setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 

@@ -47,6 +47,9 @@ repo = 'jelera/vim-javascript-syntax'
 repo = 'moll/vim-node'
 
 [[plugins]]
+repo = 'mxw/vim-jsx'
+
+[[plugins]]
 repo = 'plasticboy/vim-markdown'
 
 [[plugins]]
