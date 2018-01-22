@@ -37,6 +37,9 @@
 ;; 行数を表示する
 (global-linum-mode t)
 
+;; カーソル行をハイライトする
+(global-hl-line-mode t)
+
 ;; C-kで行全体を削除する
 (setq kill-whole-line t)
 
@@ -63,7 +66,7 @@
 	(abcl ("/opt/local/bin/abcl"))
 	(clisp ("/opt/local/bin/clisp"))))
 
-(load-theme 'misterioso)
+(load-theme 'deeper-blue)
 
 (el-get-bundle clojure-mode)
 
