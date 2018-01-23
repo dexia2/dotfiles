@@ -71,6 +71,7 @@
 (define-key global-map [f7] 'point-undo)
 (define-key global-map [S-f7] 'point-redo)
 
+(el-get-bundle undo-tree)
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 
