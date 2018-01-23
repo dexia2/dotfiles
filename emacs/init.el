@@ -43,6 +43,21 @@
 ;; C-kで行全体を削除する
 (setq kill-whole-line t)
 
+;; ClipBoard連携
+(setq save-interprogram-paste-before-kill t)
+
+;; diredを2つのウィンドウで開いている時に、デフォルトの移動orコピー先をもう一方のdiredで開いているディレクトリにする
+(setq dired-dwim-target t)
+
+;; ディレクトリを再帰的にコピーする
+(setq dired-recursive-copies 'always)
+
+;; diredバッファでC-sした時にファイル名だけにマッチするように
+(setq dired-isearch-filenames t)
+
+;; テーマ設定
+(load-theme 'deeper-blue)
+
 (when load-file-name
     (setq user-emacs-directory (file-name-directory load-file-name)))
 
@@ -51,6 +66,16 @@
 (require 'el-get)
 ;; el-getでダウンロードしたパッケージは ~/.emacs.d/ に入るようにする
 (setq el-get-dir (locate-user-emacs-file ""))
+
+(el-get-bundle point-undo)
+(define-key global-map [f7] 'point-undo)
+(define-key global-map [S-f7] 'point-redo)
+
+(global-undo-tree-mode t)
+(global-set-key (kbd "M-/") 'undo-tree-redo)
+
+(el-get-bundle flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;SBCLをデフォルトのCommon Lisp処理系に設定
 (setq inferior-lisp-program "sbcl")
@@ -65,8 +90,6 @@
 	(sbcl ("/opt/local/bin/sbcl"))
 	(abcl ("/opt/local/bin/abcl"))
 	(clisp ("/opt/local/bin/clisp"))))
-
-(load-theme 'deeper-blue)
 
 (el-get-bundle clojure-mode)
 
