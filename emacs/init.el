@@ -58,6 +58,14 @@
 ;; テーマ設定
 (load-theme 'deeper-blue)
 
+;; カーソル位置から行頭まで削除する
+(defun backward-kill-line (arg)
+  "Kill chars backward until encountering the end of a line."
+  (interactive "p")
+  (kill-line 0))
+;; C-S-kに設定
+(global-set-key (kbd "C-S-k") 'backward-kill-line)
+
 (when load-file-name
     (setq user-emacs-directory (file-name-directory load-file-name)))
 
