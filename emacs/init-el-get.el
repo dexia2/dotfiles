@@ -27,22 +27,25 @@
 ;; grep(Windows用）
 (el-get-bundle xahlee/xah-find)
 
+;; Lispの設定
+(defvar lisp-hooks
+  '(emacs-lisp-mode-hook
+    lisp-interaction-mode-hook
+    clojure-mode-hook
+    clojurescript-mode-hook))
+
 ;; Clojure用
 (el-get-bundle clojure-mode)
 
 ;; かっこの設定
 (el-get-bundle paredit)
 (show-paren-mode 1)
-(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-(add-hook 'clojure-mode-hook 'enable-paredit-mode)
-(add-hook 'clojurescript-mode-hook 'enable-paredit-mode)
 (eval-after-load 'paredit
    #'(define-key paredit-mode-map (kbd "C-j") nil))
+(dolist (hook lisp-hooks nil)
+  (add-hook hook 'enable-paredit-mode))
 
 ;; 自動インデント
 (el-get-bundle aggressive-indent)
-(add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
-(add-hook 'lisp-interaction-mode-hook 'aggressive-indent-mode)
-(add-hook 'clojure-mode-hook 'aggressive-indent-mode)
-(add-hook 'clojurescript-mode-hook 'aggressive-indent-mode)
+(dolist (hook lisp-hooks nil)
+  (add-hook hook  'aggressive-indent-mode))

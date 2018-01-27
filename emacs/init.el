@@ -41,8 +41,9 @@
 ;; 終了時にオートセーブファイルを削除
 (setq delete-auto-save-files t)
 
-;; 行数を表示する
+;; 行番号・列番号を表示する
 (global-linum-mode t)
+(column-number-mode t)
 
 ;; カーソル行をハイライトする
 (global-hl-line-mode t)
@@ -56,6 +57,14 @@
 ;; C-kで行全体を削除する
 (setq kill-whole-line t)
 
+;; 行末の空白を表示
+(setq-default show-trailing-whitespace nil)
+(defun turn-on-show-trailing-whitespace  () (interactive) (setq show-trailing-whitespace t))
+(defun turn-off-show-trailing-whitespace () (interactive) (setq show-trailing-whitespace nil))
+(defun toggle-show-trailing-whitespace () (interactive) (callf null show-trailing-whitespace))
+(add-hook 'prog-mode-hook 'turn-on-show-trailing-whitespace)
+(add-hook 'org-mode-hook 'turn-on-show-trailing-whitespace)
+
 ;; カーソル位置から行頭まで削除する
 (defun backward-kill-line (arg)
   "Kill chars backward until encountering the end of a line."
@@ -64,8 +73,25 @@
 ;; C-S-kに設定
 (global-set-key (kbd "C-S-k") 'backward-kill-line)
 
+ ;;"yes or no"を"y or n"にする
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ;; ディレクトリを再帰的にコピーする
 (setq dired-recursive-copies 'always)
 
 ;; diredバッファでC-sした時にファイル名だけにマッチするように
 (setq dired-isearch-filenames t)
+
+;; slimeは手動でインストールする
+;; git clone https://github.com/slime/slime.git
+
+;; Roswellで入れたClozure CLを使う
+(setq inferior-lisp-program "~/.roswell/impls/x86-64/windows/ccl-bin/1.11.5/wx86cl64.exe")
+
+;; slimeの設定
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/slime"))
+(require 'slime)
+(slime-setup '(slime-repl slime-fancy slime-banner)) 
+(add-hook 'lisp-mode-hook (lambda ()
+       (slime-mode t)
+       (show-paren-mode)))
