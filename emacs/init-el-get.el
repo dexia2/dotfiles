@@ -39,7 +39,6 @@
 
 ;; かっこの設定
 (el-get-bundle paredit)
-(show-paren-mode 1)
 (eval-after-load 'paredit
    #'(define-key paredit-mode-map (kbd "C-j") nil))
 (dolist (hook lisp-hooks nil)

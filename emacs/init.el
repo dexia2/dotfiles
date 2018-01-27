@@ -14,16 +14,19 @@
 ;; ツールバーを非表示
 (tool-bar-mode -1)
 
-; 半角英字設定
+;; ファイルのフルパスを表示
+(setq frame-title-format "%f")
+
+;; ビープ音を消す
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+
+; 英字設定
 (set-face-attribute 'default nil :family "Consolas" :height 100)
-; 全角かな設定
+; 日本語設定
 (set-fontset-font (frame-parameter nil 'font)
                   'japanese-jisx0208
-                  (font-spec :family "IPAゴシック" :size 14))
-; 半角ｶﾅ設定
-(set-fontset-font (frame-parameter nil 'font)
-                  'katakana-jisx0201
-                  (font-spec :family "ＭＳ ゴシック" :size 14))
+                  (font-spec :family "游ゴシック" :size 14))
 
 ;; 環境を日本語、UTF-8に
 (set-locale-environment nil)
@@ -35,11 +38,24 @@
 (set-default-coding-systems 'utf-8)
 (prefer-coding-system 'utf-8)
 
-;; バックアップファイルを作成しない
+;; オートセーブOff
+(setq auto-save-default nil)
+
+;; バックアップファイルを作らない
+(setq backup-inhibited t)
+
+;; 変更ファイルのバックアップ
 (setq make-backup-files nil)
 
-;; 終了時にオートセーブファイルを削除
-(setq delete-auto-save-files t)
+;; 変更ファイルの番号つきバックアップ
+(setq version-control nil)
+
+;; 編集中ファイルのバックアップ
+(setq auto-save-list-file-name nil)
+(setq auto-save-list-file-prefix nil)
+
+;; ロックファイルを生成しない
+(setq create-lockfiles nil)
 
 ;; 行番号・列番号を表示する
 (global-linum-mode t)
@@ -50,6 +66,14 @@
 
 ;; タブにスペースを使用
 (setq-default tab-width 4 indent-tabs-mode nil)
+
+;; かっこの設定
+(show-paren-mode 1)
+(setq show-paren-delay 0)
+(setq show-paren-style 'expression)
+
+;; mini-bufferでヤンクできるように
+(define-key isearch-mode-map "\C-y" 'isearch-yank-kill)
 
 ;; ClipBoard連携
 (setq save-interprogram-paste-before-kill t)
@@ -67,20 +91,49 @@
 
 ;; カーソル位置から行頭まで削除する
 (defun backward-kill-line (arg)
-  "Kill chars backward until encountering the end of a line."
   (interactive "p")
   (kill-line 0))
-;; C-S-kに設定
 (global-set-key (kbd "C-S-k") 'backward-kill-line)
+
+;;キルリングに入れない削除
+(defun ruthlessly-kill-line ()
+  "Deletes a line, but does not put it in the kill-ring. (kinda)"
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line 1)
+  (setq kill-ring (cdr kill-ring)))
+(global-set-key (kbd "M-k") 'ruthlessly-kill-line)
+
+;; C-hをbackspaceに
+(keyboard-translate ?\C-h ?\C-?)
+
+;; window切り替え
+(define-key global-map (kbd "C-t") 'other-window)
 
  ;;"yes or no"を"y or n"にする
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;;; C-x C-fなどをffap関係のコマンドに割り当てる
+(ffap-bindings)
 
 ;; ディレクトリを再帰的にコピーする
 (setq dired-recursive-copies 'always)
 
 ;; diredバッファでC-sした時にファイル名だけにマッチするように
 (setq dired-isearch-filenames t)
+
+;;diredで削除したときにゴミ箱へ移動させる
+(setq delete-by-moving-to-trash t)
+
+;; dired-find-alternate-file の有効化
+(put 'dired-find-alternate-file 'disabled nil)
+
+;; 新しいバッファを開かないようにする
+(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+(define-key dired-mode-map (kbd "f") 'dired-find-alternate-file)
+
+;; 代わりにaに割り当てる
+(define-key dired-mode-map (kbd "a") 'dired-find-file)
 
 ;; slimeは手動でインストールする
 ;; git clone https://github.com/slime/slime.git
