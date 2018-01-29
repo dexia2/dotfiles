@@ -1,4 +1,4 @@
-﻿;; パスの設定
+;; パスの設定
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
@@ -70,7 +70,7 @@
 ;; かっこの設定
 (show-paren-mode 1)
 (setq show-paren-delay 0)
-(setq show-paren-style 'expression)
+(setq show-paren-style 'parenthesis)
 
 ;; mini-bufferでヤンクできるように
 (define-key isearch-mode-map "\C-y" 'isearch-yank-kill)
@@ -97,12 +97,23 @@
 
 ;;キルリングに入れない削除
 (defun ruthlessly-kill-line ()
-  "Deletes a line, but does not put it in the kill-ring. (kinda)"
   (interactive)
   (move-beginning-of-line 1)
   (kill-line 1)
   (setq kill-ring (cdr kill-ring)))
 (global-set-key (kbd "M-k") 'ruthlessly-kill-line)
+
+;; 単語削除
+(defun my-kill-thing-at-point (thing)
+  (let ((bounds (bounds-of-thing-at-point thing)))
+    (if bounds
+        (kill-region (car bounds) (cdr bounds))
+      (error "No %s at point" thing))))
+(defun my-kill-word-at-point ()
+  "Kill the word at point."
+  (interactive)
+  (my-kill-thing-at-point 'word))
+(define-key global-map (kbd "C-@") 'my-kill-word-at-point)
 
 ;; C-hをbackspaceに
 (keyboard-translate ?\C-h ?\C-?)
@@ -110,7 +121,17 @@
 ;; window切り替え
 (define-key global-map (kbd "C-t") 'other-window)
 
- ;;"yes or no"を"y or n"にする
+;; buffer操作
+(define-key global-map (kbd "C-x b") 'list-buffers)
+(define-key global-map (kbd "C-o") 'switch-to-buffer)
+
+;; 閉じる
+(define-key global-map (kbd "C-x c") 'kill-emacs)
+
+;; ファイルを開く
+(define-key global-map (kbd "C-x f") 'find-file)
+
+;;"yes or no"を"y or n"にする
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;;; C-x C-fなどをffap関係のコマンドに割り当てる
@@ -146,5 +167,5 @@
 (require 'slime)
 (slime-setup '(slime-repl slime-fancy slime-banner)) 
 (add-hook 'lisp-mode-hook (lambda ()
-       (slime-mode t)
-       (show-paren-mode)))
+                            (slime-mode t)
+                            (show-paren-mode)))
