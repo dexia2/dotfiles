@@ -95,6 +95,14 @@
   (kill-line 0))
 (global-set-key (kbd "C-S-k") 'backward-kill-line)
 
+;;行のコピー
+(defun copy-line (arg)
+  (interactive "p")
+  (kill-ring-save (line-beginning-position)
+                  (line-beginning-position (+ 1 arg)))
+  (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
+(global-set-key "\C-c\C-k" 'copy-line)
+
 ;;キルリングに入れない削除
 (defun ruthlessly-kill-line ()
   (interactive)

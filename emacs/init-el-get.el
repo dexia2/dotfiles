@@ -19,6 +19,7 @@
 (el-get-bundle company)
 (global-company-mode)
 (setq company-section-wrap-around t)
+(setq company-dabbrev-downcase nil)
 
 ;; 文法チェック
 (el-get-bundle flycheck)
