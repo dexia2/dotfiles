@@ -154,16 +154,6 @@
 ;;diredで削除したときにゴミ箱へ移動させる
 (setq delete-by-moving-to-trash t)
 
-;; dired-find-alternate-file の有効化
-(put 'dired-find-alternate-file 'disabled nil)
-
-;; 新しいバッファを開かないようにする
-(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
-(define-key dired-mode-map (kbd "f") 'dired-find-alternate-file)
-
-;; 代わりにaに割り当てる
-(define-key dired-mode-map (kbd "a") 'dired-find-file)
-
 ;; slimeは手動でインストールする
 ;; git clone https://github.com/slime/slime.git
 
