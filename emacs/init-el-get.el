@@ -30,7 +30,7 @@
 
 ;; キーバインド確認
 (el-get-bundle which-key)
-(which-key-mode)
+(which-key-mode t)
 (which-key-setup-side-window-bottom)
 
 ;; Lispの設定
