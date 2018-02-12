@@ -28,6 +28,11 @@
 ;; grep(Windows用）
 (el-get-bundle xahlee/xah-find)
 
+;; キーバインド確認
+(el-get-bundle which-key)
+(which-key-mode)
+(which-key-setup-side-window-bottom)
+
 ;; Lispの設定
 (defvar lisp-hooks
   '(emacs-lisp-mode-hook
