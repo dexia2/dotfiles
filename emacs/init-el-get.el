@@ -55,3 +55,30 @@
 (el-get-bundle aggressive-indent)
 (dolist (hook lisp-hooks nil)
   (add-hook hook  'aggressive-indent-mode))
+
+;; Git管理
+(el-get-bundle magit)
+(global-set-key (kbd "C-x g") 'magit-status)
+
+;; 範囲選択
+(el-get-bundle expand-region)
+(global-set-key (kbd "C-]") 'er/expand-region)
+(global-set-key (kbd "C-M-]") 'er/contract-region)
+(transient-mark-mode t)
+
+;; プロジェクト管理
+(el-get-bundle projectile)
+(projectile-global-mode)
+
+;; 文字のカーソル移動
+(el-get-bundle ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+
+;; コピペ時のカラー
+(el-get-bundle volatile-highlights)
+(volatile-highlights-mode t)
+
+;; モードラインの編集
+(el-get-bundle powerline)
+(powerline-default-theme)
