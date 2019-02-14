@@ -3,10 +3,11 @@
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
 ;; el-getの設定
+;; 事前にGithubからel-getをclone
 (load (concat user-emacs-directory "init-el-get.el"))
 
 ;; テーマ設定
-(load-theme 'deeper-blue)
+;; (load-theme 'deeper-blue)
 
 ;; メニューバーを消す
 (menu-bar-mode -1)
@@ -22,11 +23,11 @@
 (setq ring-bell-function 'ignore)
 
 ; 英字設定
-(set-face-attribute 'default nil :family "Consolas" :height 100)
+;; (set-face-attribute 'default nil :family "Consolas" :height 100)
 ; 日本語設定
-(set-fontset-font (frame-parameter nil 'font)
-                  'japanese-jisx0208
-                  (font-spec :family "游ゴシック" :size 14))
+;; (set-fontset-font (frame-parameter nil 'font)
+;;                  'japanese-jisx0208
+;;                  (font-spec :family "游ゴシック" :size 14))
 
 ;; 環境を日本語、UTF-8に
 (set-locale-environment nil)
@@ -158,12 +159,12 @@
 ;; git clone https://github.com/slime/slime.git
 
 ;; Roswellで入れたClozure CLを使う
-(setq inferior-lisp-program "~/.roswell/impls/x86-64/windows/ccl-bin/1.11.5/wx86cl64.exe")
+;; (setq inferior-lisp-program "~/.roswell/impls/x86-64/windows/ccl-bin/1.11.5/wx86cl64.exe")
 
 ;; slimeの設定
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/slime"))
-(require 'slime)
-(slime-setup '(slime-repl slime-fancy slime-banner)) 
-(add-hook 'lisp-mode-hook (lambda ()
-                            (slime-mode t)
-                            (show-paren-mode)))
+;; ((add-to-list 'load-path (expand-file-name "~/.emacs.d/slime"))
+;; ((require 'slime)
+;; ((slime-setup '(slime-repl slime-fancy slime-banner)
+;; ((add-hook 'lisp-mode-hook (lambda ()
+;; (                            (slime-mode t)
+;; (                            (show-paren-mode)))
